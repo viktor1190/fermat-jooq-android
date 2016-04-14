@@ -1,0 +1,3 @@
+rootProject.name = 'fermat-jooq-android'
+include ':android-app'
+project(':android-app').projectDir = "$rootDir/android-app" as File
