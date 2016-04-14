@@ -1,7 +1,9 @@
 # fermat-jooq-android
 
-fermat-jooq-android:android-app [generate]
-will generate java POJOs and DAOs classes from node.db
+Project can be compiled using java 7
 
-fermat-jooq-android:android-app [clean]
-will delete generated classes
+###Gradle
+
+fermat-jooq-android:android-app **[generate]** task will generate java POJOs and DAOs classes from node.db
+
+fermat-jooq-android:android-app **[clean]** task will delete generated classes
