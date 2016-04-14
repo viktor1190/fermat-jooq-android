@@ -29,6 +29,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt' //Workaround for https://code.google.com/p/android/issues/detail?id=61573
+    }
 }
 
 dependencies {
@@ -36,9 +40,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'org.jooq:jooq:3.6.4'
-    compile 'org.xerial:sqlite-jdbc:3.8.11.2'
-    compile 'javax.annotation:javax.annotation-api:1.2'
     //Needed for @Generated annotation
+    compile 'javax.annotation:javax.annotation-api:1.2'
+    compile 'org.sqldroid:sqldroid:1.0.3'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 }
 
 buildscript {
@@ -61,7 +66,7 @@ task generate << {
             .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.6.0.xsd') {
         jdbc() {
             driver('org.sqlite.JDBC')
-            url("jdbc:sqlite:$projectDir/node.db")
+            url("jdbc:sqlite:$projectDir/src/main/assets/databases/node.db")
             /*user('sa')
             password('')*/
         }
@@ -74,6 +79,7 @@ task generate << {
             // - http://stackoverflow.com/a/11389034/521799
             // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
             generate([:]) {
+                deprecated false
                 pojos true
                 daos true
             }
